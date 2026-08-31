@@ -1,0 +1,6 @@
+config/db_config.php
+config/install.lock
+uploads/menu/img_*
+uploads/gallery/img_*
+.DS_Store
+Thumbs.db
