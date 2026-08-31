@@ -234,7 +234,20 @@ try {
                     <p class="mb-1 text-dark small"><i class="bi bi-person me-2"></i><?php echo escape($selected_order['customer_name']); ?></p>
                     <p class="mb-1 text-muted small"><i class="bi bi-telephone me-2"></i><?php echo escape($selected_order['customer_phone']); ?></p>
                     <p class="mb-1 text-muted small"><i class="bi bi-envelope me-2"></i><?php echo escape($selected_order['customer_email']); ?></p>
-                    <p class="mb-0 text-muted small"><i class="bi bi-clock me-2"></i><?php echo date('M d, Y - h:i A', strtotime($selected_order['created_at'])); ?></p>
+                    <p class="mb-1 text-muted small"><i class="bi bi-clock me-2"></i><?php echo date('M d, Y - h:i A', strtotime($selected_order['created_at'])); ?></p>
+                    
+                    <?php if (!empty($selected_order['table_number'])): ?>
+                        <div class="p-2 bg-light rounded mt-2 border">
+                            <span class="badge bg-sage text-white me-1">Dine-In</span>
+                            <strong>Table #<?php echo escape($selected_order['table_number']); ?></strong>
+                        </div>
+                    <?php endif; ?>
+                    
+                    <?php if (!empty($selected_order['gateway_payment_id'])): ?>
+                        <div class="p-2 bg-light rounded mt-2 border small font-monospace">
+                            <span class="text-muted">Payment ID:</span> <?php echo escape($selected_order['gateway_payment_id']); ?>
+                        </div>
+                    <?php endif; ?>
                 </div>
                 
                 <!-- Logistics -->

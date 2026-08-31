@@ -115,10 +115,12 @@ function getCartSubtotal() {
     return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
 }
 
-// Sync Navbar Cart Badge count
+// Sync Navbar & Mobile Cart Badges and Floating Bar
 function syncCartBadge() {
-    const badges = document.querySelectorAll('.cart-count');
+    const badges = document.querySelectorAll('.cart-count, .cart-count-badge');
     const count = getCartCount();
+    const subtotal = getCartSubtotal();
+    
     badges.forEach(badge => {
         badge.textContent = count;
         if (count > 0) {
@@ -127,6 +129,24 @@ function syncCartBadge() {
             badge.classList.add('d-none');
         }
     });
+
+    // Update Swiggy/Zomato style Mobile Floating Cart Bar
+    const floatCart = document.getElementById('mobile-floating-cart');
+    const floatCount = document.getElementById('m-float-cart-count');
+    const floatTotal = document.getElementById('m-float-cart-total');
+
+    if (floatCart && floatCount && floatTotal) {
+        const path = window.location.pathname;
+        const isCartOrCheckout = path.includes('cart.php') || path.includes('checkout.php') || path.includes('order-success.php');
+        
+        if (count > 0 && !isCartOrCheckout) {
+            floatCount.textContent = count === 1 ? '1 Item' : `${count} Items`;
+            floatTotal.textContent = `₹${subtotal.toFixed(2)}`;
+            floatCart.style.display = 'block';
+        } else {
+            floatCart.style.display = 'none';
+        }
+    }
 }
 
 // Animate Cart Button on adding item

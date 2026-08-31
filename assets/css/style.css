@@ -737,3 +737,170 @@ a:hover {
         transform: translateY(0);
     }
 }
+
+/* ========================================================
+ * Mobile-First App Navigation & Zomato/Swiggy Mobile Polish
+ * ======================================================== */
+.mobile-bottom-nav {
+    height: 60px;
+    z-index: 1040;
+    background: #FFFFFF !important;
+    border-top: 1px solid #EFEAE0 !important;
+}
+.mobile-bottom-nav .nav-item-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 0;
+    color: #77716A;
+    text-decoration: none;
+    font-size: 0.72rem;
+    font-weight: 500;
+    transition: var(--transition-smooth);
+}
+.mobile-bottom-nav .nav-item-mobile i {
+    font-size: 1.25rem;
+    margin-bottom: 2px;
+}
+.mobile-bottom-nav .nav-item-mobile.active,
+.mobile-bottom-nav .nav-item-mobile:hover {
+    color: var(--accent-sage);
+}
+.cart-badge-pill {
+    position: absolute;
+    top: -4px;
+    right: -10px;
+    background-color: var(--accent-terracotta);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 50px;
+}
+
+/* Floating Cart Summary Bar (Swiggy / Zomato style) */
+.mobile-floating-cart-bar {
+    position: fixed;
+    bottom: 68px;
+    left: 12px;
+    right: 12px;
+    z-index: 1030;
+    background: linear-gradient(135deg, #78906F 0%, #5E7556 100%);
+    border-radius: 14px;
+    box-shadow: 0 8px 24px rgba(120, 144, 111, 0.4);
+    animation: slideUpFloat 0.3s ease-out;
+}
+@keyframes slideUpFloat {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Ensure page body has clearance for mobile bottom bar */
+@media (max-width: 767.98px) {
+    body {
+        padding-bottom: 75px !important;
+    }
+    .custom-footer {
+        padding-bottom: 80px !important;
+    }
+}
+
+/* Horizontal Category Scroll Bar for Menu */
+.category-scroll-bar {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px 4px;
+    gap: 8px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    -webkit-overflow-scrolling: touch;
+}
+.category-scroll-bar::-webkit-scrollbar {
+    display: none;
+}
+.category-pill-item {
+    display: inline-block;
+    padding: 8px 18px;
+    background: #FAF7F0;
+    border: 1px solid #EFEAE0;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-text);
+    text-decoration: none;
+    transition: var(--transition-smooth);
+    flex-shrink: 0;
+}
+.category-pill-item.active,
+.category-pill-item:hover {
+    background: var(--accent-sage);
+    color: #fff;
+    border-color: var(--accent-sage);
+}
+
+/* Swiggy/Zomato Compact Food Item Card */
+.food-card-modern {
+    background: #FFFFFF;
+    border: 1px solid #EFEAE0;
+    border-radius: 14px;
+    padding: 16px;
+    transition: var(--transition-smooth);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.food-card-modern:hover {
+    box-shadow: 0 8px 24px rgba(0,0,0,0.04);
+    border-color: #E3DCCB;
+}
+.food-badge-veg {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #2E7D32;
+    padding: 2px;
+    border-radius: 3px;
+    vertical-align: middle;
+}
+.food-badge-veg::after {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    background: #2E7D32;
+    border-radius: 50%;
+}
+.food-badge-nonveg {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid #C62828;
+    padding: 2px;
+    border-radius: 3px;
+    vertical-align: middle;
+}
+.food-badge-nonveg::after {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    background: #C62828;
+    border-radius: 50%;
+}
+.add-btn-pill {
+    background: #FFFFFF;
+    border: 1.5px solid var(--accent-sage);
+    color: var(--accent-sage);
+    font-weight: 700;
+    font-size: 0.82rem;
+    padding: 6px 18px;
+    border-radius: 8px;
+    transition: var(--transition-smooth);
+    box-shadow: 0 2px 6px rgba(120, 144, 111, 0.15);
+}
+.add-btn-pill:hover {
+    background: var(--accent-sage);
+    color: #FFFFFF;
+}

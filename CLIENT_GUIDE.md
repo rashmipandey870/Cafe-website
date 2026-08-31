@@ -45,9 +45,41 @@ If you run out of an ingredient, you can temporarily disable the item so custome
 
 ---
 
-## 3. Creating Coupons & Offers (The Promotions Engine)
+## 3. Printing Table QR Code Stands (Contactless Ordering)
 
-You can run sales campaigns, happy hours, or coupon promotions from the dashboard.
+You can generate and print acrylic table stands for customers to order directly from their tables using their smartphones:
+
+1. Click **Table QR Codes** in the left sidebar menu.
+2. Select your **Table Number** (e.g., Table 01, Table 02, etc.).
+3. A branded 4" x 6" acrylic table tent card will appear in the live preview.
+4. Click **Print Stand** to print it directly onto your printer or card stock.
+5. Place the printed stands on your tables. When customers scan the QR with their phone camera, their table number is automatically remembered and attached to their order!
+
+---
+
+## 4. Setting Up Razorpay & UPI Payments
+
+You can accept online payments via Google Pay, PhonePe, Paytm, Cards, and Net Banking:
+
+1. Go to **Settings** on the left menu and click the **Payments & Razorpay** tab.
+2. Toggle **Enable Online Payments** to ON.
+3. Enter your **Merchant UPI ID** (e.g. `yourcafe@upi` or `9876543210@paytm`) and **Merchant Display Name**.
+4. Paste your **Razorpay Key ID** (`rzp_live_...` from your Razorpay Dashboard).
+5. Set the mode to **Live Mode** when you are ready to accept real payments.
+6. Click **Save All Settings**.
+
+---
+
+## 5. Updating Your Google Maps Location
+
+1. Go to **Settings** and click the **Google Maps** tab.
+2. Open Google Maps in a browser, find your café, click **Share → Embed a map**, and copy the `src="..."` URL.
+3. Paste the URL into the **Google Maps Embed URL** field.
+4. Click **Save All Settings**. The map will immediately update on your website's Contact page.
+
+---
+
+## 6. Creating Coupons & Offers (The Promotions Engine)
 
 ### A. How to Create a Coupon Code (e.g., "DIWALI20")
 1. Click **Promotions** on the left menu.
@@ -61,20 +93,18 @@ You can run sales campaigns, happy hours, or coupon promotions from the dashboar
    * **Minimum Order**: The cart value required to use the coupon (e.g., ₹500).
    * **Maximum Discount**: The maximum discount cap allowed (e.g., limit a 20% discount to a maximum of ₹300).
    * **Start / End Time**: Select the dates and times when the campaign starts and ends.
-   * **Apply To**: Choose if it applies to the **Entire Menu**, specific **Categories** (e.g. only desserts), or specific **Products**.
+   * **Apply To**: Choose if it applies to the **Entire Menu**, specific **Categories**, or specific **Products**.
 4. Click **Create Promotion**.
 
 ### B. How to Duplicate a Campaign
 To run a past campaign again under a new name:
 1. Go to the **Promotions** list.
 2. Find the campaign and click the **Duplicate** button (the copy icon).
-3. The form will load all configuration data automatically. Just update the dates or name, and click save!
+3. Update the dates or name, and click save!
 
 ---
 
-## 4. Processing Incoming Orders
-
-When customers place orders, they appear in the administration system.
+## 7. Processing Incoming Orders
 
 ### A. Live New Order Banners
 * The moment a customer places a checkout order, a bright notification banner (`🔔 NEW ORDER`) will appear at the top of your dashboard.
@@ -82,60 +112,32 @@ When customers place orders, they appear in the administration system.
 
 ### B. Moving an Order Through the Prep Process
 1. Click **Orders** in the left sidebar.
-2. Find the new order (status: **Pending**) and click the view button.
-3. Review the items, customer phone, notes, and fulfillment type (Pickup or Delivery).
-4. Update the order status using the dropdown selector as preparation proceeds:
-   * **Confirmed**: You have accepted the order and are printing the ticket.
-   * **Preparing**: Baristas and chefs are preparing the items.
-   * **Ready**: The order is packed at the counter for pickup, or ready for the delivery driver.
-   * **Out for Delivery** (Delivery only): The courier has left the building.
-   * **Completed**: The customer has paid and received their order.
-   * **Cancelled**: If you need to reject the order (e.g., sold out), mark it cancelled. The customer's tracking screen will immediately display "Order Cancelled."
+2. Click on the order to view its customer details, order type (Takeaway, Delivery, or Table Dine-In), and items ordered.
+3. Check the **Payment Status**:
+   * **Paid**: Customer paid online via Razorpay.
+   * **Pending**: Customer chose Cash or direct UPI QR payment.
+4. Update the **Order Status** as preparation proceeds:
+   * **Confirmed**: You have accepted the order.
+   * **Preparing**: Kitchen staff is preparing the food.
+   * **Ready**: Order is packed for pickup or ready to be served to the table.
+   * **Out for Delivery** (Delivery only): Courier is on the way.
+   * **Completed**: Food delivered or served and payment collected.
+   * **Cancelled**: If the order could not be fulfilled.
 
 ---
 
-## 5. Booking Reservations & Testimonials
+## 8. Simple Database Backups & Recovery
 
-### A. Customer Table Reservations
-1. Click **Reservations** on the left menu.
-2. View incoming requests, contact phone numbers, requested times, and special requests (e.g. "birthday brunch").
-3. Click the green checkmark to **Confirm** the booking, or click the red "X" to cancel it.
-
-### B. Website Reviews
-1. Click **Reviews** in the sidebar.
-2. Read the reviews customers submit.
-3. Click the **Approve** button to display a positive review on your homepage carousel, or click **Unapprove** to hide it.
-
----
-
-## 6. Adjusting Website Settings & Café Information
-
-1. Click **Settings** on the left menu.
-2. Modify your business hours, contact numbers, address, and social links.
-3. Manage tax and delivery calculations:
-   * **Tax/GST Toggle & Rate**: Turn sales tax on/off and set the percentage (e.g., `5.00` for 5% GST).
-   * **Delivery Charge**: The standard delivery surcharge.
-   * **Minimum Delivery Order**: The lowest order subtotal allowed for home delivery checkouts.
-   * **Free Delivery Threshold**: The order subtotal value above which the delivery fee is waived.
-4. Click **Save Website Configurations** to apply changes.
-
----
-
-## 7. Simple Database Backups & Recovery
-
-Because you own your website and database data, we recommend taking backups monthly to protect your business logs.
+We recommend taking monthly database backups to protect your business records:
 
 ### A. Backing Up Your Database
-1. Log in to your hosting control panel (cPanel).
-2. Find the **Databases** section and click **phpMyAdmin**.
-3. Select your database from the left-side menu (e.g. `yourcafe_db`).
-4. Click the **Export** tab at the top.
-5. Keep the export method set to **Quick** and format set to **SQL**.
-6. Click **Export** / **Go**. A file ending in `.sql` will download. Store this file securely.
+1. Log in to your hosting cPanel -> **phpMyAdmin**.
+2. Select your database from the left menu.
+3. Click the **Export** tab at the top.
+4. Keep the export method set to **Quick** and format set to **SQL**.
+5. Click **Export** / **Go** to download your `.sql` file.
 
-### B. Restoring Your Database (Recovery)
-In case of a server crash or database loss:
-1. Log in to cPanel -> **phpMyAdmin** and select your database.
-2. Click the **Import** tab at the top.
-3. Click **Choose File** and select your saved `.sql` backup file.
-4. Click **Import** / **Go** at the bottom of the page. All settings, menu items, and order history will be restored!
+### B. Restoring Your Database
+1. In phpMyAdmin, select your database.
+2. Click the **Import** tab.
+3. Click **Choose File**, select your backup `.sql` file, and click **Import**.

@@ -5,28 +5,28 @@ Use this checklist to verify, configure, and secure the website package before h
 ---
 
 ## 1. Hosting Environment & Server Setup
-- [ ] **PHP Version**: Ensure the host server is configured to run **PHP 8.0 or newer**.
-- [ ] **Database Engine**: Ensure MySQL 5.7+ or MariaDB 10.3+ is active on the server.
+- [ ] **PHP Version**: Host server is running **PHP 8.0 or newer**.
+- [ ] **Database Engine**: MySQL 5.7+ or MariaDB 10.3+ is active on the server.
 - [ ] **File Permissions**:
   - Web directories: `0755`
-  - Upload folders (`uploads/menu/`, `uploads/gallery/`, `uploads/offers/`): `0755` (write permission enabled for image uploads)
+  - Upload folders (`uploads/menu/`, `uploads/gallery/`, `uploads/offers/`): `0755` (write permission enabled for uploads)
   - PHP Source files: `0644`
-  - Database Config file (`config/db_config.php`): `0600` or `0644` depending on server environment.
+  - Database Config file (`config/db_config.php`): `0600` or `0644`.
 
 ---
 
 ## 2. Secure Database User Provisioning (No root in production!)
 - [ ] **Create Database**: Create a new empty database via cPanel MySQL Database Wizard (e.g., `mellow_meadow_cafe`).
-- [ ] **Create User**: Create a dedicated database user with a strong random password (e.g., `mellow_meadow_app`). Do **NOT** use the default MySQL `root` account on the live server.
-- [ ] **Grant Privileges**: Assign the user to the database with only standard web application privileges:
+- [ ] **Create Dedicated User**: Create a dedicated database user with a strong password (e.g., `mellow_meadow_app`). Do **NOT** use `root` on the live server.
+- [ ] **Grant Privileges**: Assign standard privileges:
   - Enabled: `SELECT`, `INSERT`, `UPDATE`, `DELETE`, `CREATE`, `DROP`, `INDEX`, `ALTER`
   - Disabled: Administrative options (`GRANT`, `SUPER`, `SHUTDOWN`, etc.)
 
 ---
 
 ## 3. Web Installation and Schema Seeding
-- [ ] **Run Web Installer**: Open your browser and navigate to the domain followed by `install.php` (e.g. `https://yourdomain.com/install.php`).
-- [ ] **Enter Parameters**: Input the Host, Port, Name, Username, and Password created in Section 2.
+- [ ] **Run Web Installer**: Open your browser and navigate to `https://yourdomain.com/install.php`.
+- [ ] **Enter Parameters**: Input the Host, Port, Name, Username, and Password.
 - [ ] **Verify Installer Success**:
   - [ ] Database connects successfully.
   - [ ] Tables are created and default settings are seeded.
@@ -35,22 +35,37 @@ Use this checklist to verify, configure, and secure the website package before h
 
 ---
 
-## 4. Security Audit & Final Hardening
-- [ ] **Installer Lock Check**: Visit `https://yourdomain.com/install.php` and verify it returns a **`403 Forbidden`** error page.
-- [ ] **Diagnostics Lock Check**: Visit `https://yourdomain.com/tools/database-check.php` and verify it returns a **`403 Forbidden`** page.
-- [ ] **Delete Diagnostics Directory**: Delete the entire `tools/` folder from the production server for defense-in-depth safety.
-- [ ] **SSL / HTTPS Activation**:
-  - Install a valid SSL certificate (Let's Encrypt / AutoSSL) via cPanel.
-  - Ensure the redirect from HTTP to HTTPS is active in the root `.htaccess`.
-- [ ] **Exposed File Blocking**: Verify that trying to access `config/db_config.php` or `database/cafe_database.sql` directly from the browser throws a **`403 Forbidden`** error.
+## 4. Indian Payment Gateway & Google Maps Setup
+- [ ] **Client Razorpay Account**: Ensure the café owner has their own verified Razorpay account.
+- [ ] **Configure Razorpay Secret Key**: Add `define('RAZORPAY_KEY_SECRET', 'rzp_live_secret_here');` inside `config/db_config.php` on the server.
+- [ ] **Configure Admin Payment Settings**:
+  - [ ] Set **Payment Environment** to **Live Mode** in **Admin Settings → Payments**.
+  - [ ] Enter the client's **Razorpay Key ID** (`rzp_live_...`).
+  - [ ] Enter the client's **Merchant UPI ID** (e.g. `cafe@upi`) and **Merchant Name**.
+- [ ] **Configure Google Maps Embed**: Paste the café's Google Maps embed `src="..."` URL into **Admin Settings → Google Maps**.
+- [ ] **Configure Table Ordering**: Ensure **Table Ordering** is enabled and print the acrylic table stands from **Admin → Table QR Codes**.
 
 ---
 
-## 5. Administrative Setup & Testing
-- [ ] **Default Admin Profile Update**:
-  - Log in to `/admin/` using credentials: `admin@mellowandmeadow.com` / `AdminPassword123!`
-  - Navigate to phpMyAdmin or the database user manager and update the password hash inside the `users` table to a secure client password.
-- [ ] **Timezone Calibration**: Navigate to **Settings** in the admin panel and select the café's local timezone (e.g., `Asia/Kolkata`) to synchronize promotions, order timestamps, and reservations correctly.
-- [ ] **Menu pricing Test**: Add a test item, modify its price, toggle its availability status to "Unavailable", and confirm that the change renders instantly on the customer menu page.
-- [ ] **Promotion/Coupon Test**: Set up a test percentage coupon (e.g. `TEST10`, 10% off, min order ₹100), add items to the cart, apply it, and verify that the checkout summary card recalculates the totals (discount, GST, and final price) via AJAX.
-- [ ] **Reservation Flow Test**: Book a table slot from the customer page, verify that the notification badge incremented on the admin sidebar, and approve it inside the Admin Reservations list.
+## 5. Security Audit & Final Hardening
+- [ ] **Installer Lock Check**: Visit `https://yourdomain.com/install.php` and verify it returns **`403 Forbidden`**.
+- [ ] **Diagnostics Lock Check**: Visit `https://yourdomain.com/tools/database-check.php` and verify it returns **`403 Forbidden`**.
+- [ ] **Delete Diagnostics Directory**: Delete the entire `tools/` folder from the production server.
+- [ ] **SSL / HTTPS Activation**:
+  - Install a valid SSL certificate (AutoSSL / Let's Encrypt) in cPanel.
+  - Verify HTTPS redirects smoothly.
+- [ ] **Exposed File Blocking**: Verify that direct browser access to `config/db_config.php` or `database/cafe_database.sql` returns **`403 Forbidden`**.
+
+---
+
+## 6. Administrative Setup & Testing
+- [ ] **Update Default Admin Password**: Log in to `/admin/` and change the default password (`AdminPassword123!`) immediately.
+- [ ] **Mobile UX Responsiveness Check**: Test the site on a mobile device (360px–430px) to confirm:
+  - [ ] Fixed bottom navigation bar works.
+  - [ ] Floating cart summary pill (`2 Items | ₹380 • View Cart ➔`) updates dynamically.
+  - [ ] Category horizontal scroller on `menu.php` scrolls smoothly.
+  - [ ] Realtime live search filters dishes instantly.
+- [ ] **End-to-End Order Flow Test**:
+  - [ ] Place a test takeaway order with UPI QR.
+  - [ ] Place a test dine-in order by scanning Table #01 QR code.
+  - [ ] Verify orders show up in the Admin Orders panel with table badges and payment statuses.

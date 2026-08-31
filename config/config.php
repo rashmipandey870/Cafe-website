@@ -28,10 +28,18 @@ if (session_status() === PHP_SESSION_NONE) {
 // 2. Base Configuration Constants
 if (!defined('BASE_URL')) {
     $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https://" : "http://";
-    $host = $_SERVER['HTTP_HOST'];
-    $script_name = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+    $host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'localhost';
+    $script_name = isset($_SERVER['SCRIPT_NAME']) ? str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME'])) : '';
     $base_path = rtrim($script_name, '/');
     define('BASE_URL', $protocol . $host . $base_path);
+}
+
+// 2.1 Razorpay Secret Key Fallbacks (configured in config/db_config.php)
+if (!defined('RAZORPAY_KEY_SECRET')) {
+    define('RAZORPAY_KEY_SECRET', '');
+}
+if (!defined('RAZORPAY_WEBHOOK_SECRET')) {
+    define('RAZORPAY_WEBHOOK_SECRET', '');
 }
 
 // 3. Load Dynamic Settings from Database
@@ -67,7 +75,17 @@ $default_settings = [
     'free_delivery_above'    => '500.00',
     'minimum_delivery_order' => '200.00',
     'tax_enabled'            => '1',
-    'tax_rate'               => '5.00'
+    'tax_rate'               => '5.00',
+    'payment_gateway_enabled'=> '1',
+    'payment_gateway_mode'   => 'test',
+    'razorpay_key_id'        => 'rzp_test_1DP5mmOlF5G5ag',
+    'merchant_upi_id'        => 'mellowmeadow@upi',
+    'merchant_upi_name'      => 'Mellow & Meadow Cafe',
+    'cafe_google_maps_api_key'=> '',
+    'cafe_latitude'          => '28.5355161',
+    'cafe_longitude'         => '77.1994537',
+    'table_ordering_enabled' => '1',
+    'website_qr_url'         => ''
 ];
 
 // Fill in any missing settings with default fallbacks
@@ -81,4 +99,9 @@ foreach ($default_settings as $key => $fallback_value) {
 $configured_timezone = !empty($settings['cafe_timezone']) ? $settings['cafe_timezone'] : 'Asia/Kolkata';
 if (!@date_default_timezone_set($configured_timezone)) {
     date_default_timezone_set('Asia/Kolkata'); // Fallback if DB holds invalid timezone name
+}
+
+// 6. Remember Table Number from QR Scans
+if (isset($_GET['table']) && !empty(trim($_GET['table']))) {
+    $_SESSION['table_number'] = htmlspecialchars(trim($_GET['table']), ENT_QUOTES, 'UTF-8');
 }

@@ -122,7 +122,8 @@ CREATE TABLE `orders` (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `order_number` VARCHAR(50) NOT NULL UNIQUE,
   `customer_id` INT NOT NULL,
-  `order_type` ENUM('pickup', 'delivery') NOT NULL,
+  `order_type` ENUM('pickup', 'delivery', 'dine_in') NOT NULL,
+  `table_number` VARCHAR(20) NULL,
   `subtotal` DECIMAL(10, 2) NOT NULL,
   `discount_amount` DECIMAL(10, 2) DEFAULT 0.00,
   `delivery_charge` DECIMAL(10, 2) DEFAULT 0.00,
@@ -131,7 +132,12 @@ CREATE TABLE `orders` (
   `promotion_id` INT NULL, -- References promotion that was actually applied
   `coupon_code` VARCHAR(50) NULL,
   `payment_method` VARCHAR(50) NOT NULL,
-  `payment_status` ENUM('pending', 'paid', 'failed') DEFAULT 'pending',
+  `gateway` VARCHAR(50) NULL,
+  `gateway_order_id` VARCHAR(100) NULL,
+  `gateway_payment_id` VARCHAR(100) NULL,
+  `gateway_signature` VARCHAR(255) NULL,
+  `payment_status` ENUM('pending', 'paid', 'failed', 'refunded') DEFAULT 'pending',
+  `payment_verified_at` TIMESTAMP NULL,
   `order_status` ENUM('pending', 'confirmed', 'preparing', 'ready', 'out_for_delivery', 'completed', 'cancelled') DEFAULT 'pending',
   `delivery_address` TEXT NULL,
   `notes` TEXT NULL,
@@ -250,7 +256,17 @@ INSERT INTO `settings` (`setting_key`, `setting_value`) VALUES
 ('free_delivery_above', '500.00'),
 ('minimum_delivery_order', '200.00'),
 ('tax_enabled', '1'),
-('tax_rate', '5.00');
+('tax_rate', '5.00'),
+('payment_gateway_enabled', '1'),
+('payment_gateway_mode', 'test'),
+('razorpay_key_id', 'rzp_test_1DP5mmOlF5G5ag'),
+('merchant_upi_id', 'mellowmeadow@upi'),
+('merchant_upi_name', 'Mellow & Meadow Cafe'),
+('cafe_google_maps_api_key', ''),
+('cafe_latitude', '28.5355161'),
+('cafe_longitude', '77.1994537'),
+('table_ordering_enabled', '1'),
+('website_qr_url', 'http://localhost:8000/menu.php');
 
 -- Seeding Users (Password: AdminPassword123!)
 -- Bcrypt Hash of 'AdminPassword123!': $2y$10$B5W4p4dMszP9gXbUuqVpeuxpZ3/D/C2B2kKx.gqjQh9rP9Z9e0y1y

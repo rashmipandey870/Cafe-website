@@ -87,6 +87,11 @@ try {
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link <?php echo ($current_dir === 'qrcode') ? 'active' : ''; ?>" href="<?php echo BASE_URL; ?>/admin/qrcode/index.php">
+                <i class="bi bi-qr-code"></i> Table QR Codes
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link <?php echo ($current_dir === 'settings') ? 'active' : ''; ?>" href="<?php echo BASE_URL; ?>/admin/settings/index.php">
                 <i class="bi bi-gear-fill"></i> Settings
             </a>
