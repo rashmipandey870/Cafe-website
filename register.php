@@ -7,8 +7,9 @@
 $page_title = 'Create Customer Account';
 $page_description = 'Sign up for a Mellow & Meadow customer account to easily manage bookings and save shipping address details.';
 
-require_once __DIR__ . '/includes/header.php';
-require_once __DIR__ . '/includes/navbar.php';
+require_once __DIR__ . '/config/config.php';
+require_once __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/includes/csrf.php';
 
 if (isset($_SESSION['customer_logged_in']) && $_SESSION['customer_logged_in'] === true) {
     header("Location: customer-dashboard.php");
@@ -104,6 +105,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
+require_once __DIR__ . '/includes/header.php';
+require_once __DIR__ . '/includes/navbar.php';
 ?>
 
 <section class="section-padding py-5" style="background-color: var(--bg-secondary);">

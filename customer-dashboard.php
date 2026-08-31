@@ -7,8 +7,9 @@
 $page_title = 'My Dashboard';
 $page_description = 'View your Mellow & Meadow orders history, track reservations, and edit your saved billing addresses.';
 
-require_once __DIR__ . '/includes/header.php';
-require_once __DIR__ . '/includes/navbar.php';
+require_once __DIR__ . '/config/config.php';
+require_once __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/includes/csrf.php';
 
 // Enforce Customer Authentication Gate
 if (!isset($_SESSION['customer_logged_in']) || $_SESSION['customer_logged_in'] !== true) {
@@ -100,6 +101,9 @@ try {
 } catch (PDOException $e) {
     error_log("Fetch customer reservations error: " . $e->getMessage());
 }
+
+require_once __DIR__ . '/includes/header.php';
+require_once __DIR__ . '/includes/navbar.php';
 ?>
 
 <!-- Header -->

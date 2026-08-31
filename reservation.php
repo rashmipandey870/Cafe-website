@@ -7,8 +7,9 @@
 $page_title = 'Book a Table';
 $page_description = 'Reserve a table online at Mellow & Meadow Café. Select your date, time, and guest count for a relaxing breakfast or dinner.';
 
-require_once __DIR__ . '/includes/header.php';
-require_once __DIR__ . '/includes/navbar.php';
+require_once __DIR__ . '/config/config.php';
+require_once __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/includes/csrf.php';
 
 $db = get_db_connection();
 $errors = [];
@@ -92,6 +93,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
+require_once __DIR__ . '/includes/header.php';
+require_once __DIR__ . '/includes/navbar.php';
 ?>
 
 <!-- Reservation Header -->

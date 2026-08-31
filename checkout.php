@@ -7,8 +7,9 @@
 $page_title = 'Checkout';
 $page_description = 'Confirm your details, apply coupon codes, choose payment methods, and confirm your order.';
 
-require_once __DIR__ . '/includes/header.php';
-require_once __DIR__ . '/includes/navbar.php';
+require_once __DIR__ . '/config/config.php';
+require_once __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/includes/csrf.php';
 
 $db = get_db_connection();
 $errors = [];
@@ -223,6 +224,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
+require_once __DIR__ . '/includes/header.php';
+require_once __DIR__ . '/includes/navbar.php';
 ?>
 
 <section class="section-padding py-5" style="background-color: var(--bg-secondary);">

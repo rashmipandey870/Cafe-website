@@ -7,8 +7,9 @@
 $page_title = 'Customer Login';
 $page_description = 'Sign in to your Mellow & Meadow customer account to track your orders, manage reservations, and edit saved delivery addresses.';
 
-require_once __DIR__ . '/includes/header.php';
-require_once __DIR__ . '/includes/navbar.php';
+require_once __DIR__ . '/config/config.php';
+require_once __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/includes/csrf.php';
 
 // If already logged in, redirect to dashboard
 if (isset($_SESSION['customer_logged_in']) && $_SESSION['customer_logged_in'] === true) {
@@ -58,6 +59,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
+require_once __DIR__ . '/includes/header.php';
+require_once __DIR__ . '/includes/navbar.php';
 ?>
 
 <section class="section-padding py-5" style="background-color: var(--bg-secondary);">

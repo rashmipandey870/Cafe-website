@@ -7,8 +7,9 @@
 $page_title = 'Contact Us';
 $page_description = 'Get in touch with Mellow & Meadow Café. Find our phone number, email address, locations, hours, or send an enquiry directly online.';
 
-require_once __DIR__ . '/includes/header.php';
-require_once __DIR__ . '/includes/navbar.php';
+require_once __DIR__ . '/config/config.php';
+require_once __DIR__ . '/includes/functions.php';
+require_once __DIR__ . '/includes/csrf.php';
 
 $db = get_db_connection();
 $errors = [];
@@ -59,6 +60,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+
+require_once __DIR__ . '/includes/header.php';
+require_once __DIR__ . '/includes/navbar.php';
 ?>
 
 <!-- Contact Header -->
