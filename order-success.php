@@ -173,7 +173,11 @@ require_once __DIR__ . '/includes/navbar.php';
             
             <div class="d-flex justify-content-center gap-2 flex-wrap">
                 <a href="track-order.php?order_number=<?php echo urlencode($order_number); ?>" class="btn btn-sage text-white px-4 py-2 rounded-pill fw-bold">
-                    <i class="bi bi-clock-history me-1"></i>Track Order Timeline
+                    <?php if ($order_details['order_type'] === 'delivery'): ?>
+                        <i class="bi bi-geo-alt-fill me-1"></i>Track Live Delivery on Map
+                    <?php else: ?>
+                        <i class="bi bi-clock-history me-1"></i>Track Order Timeline
+                    <?php endif; ?>
                 </a>
                 <a href="menu.php" class="btn btn-outline-secondary px-4 py-2 rounded-pill fw-bold">
                     Order More Items

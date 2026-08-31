@@ -283,15 +283,15 @@ try {
     </div>
 </section>
 
-<!-- 7. Opening Hours + Location Split Grid -->
+<!-- 7. Opening Hours & Location Info -->
 <section class="section-padding">
     <div class="container">
-        <div class="row g-5">
+        <div class="row g-4 justify-content-center">
             <!-- Hours -->
             <div class="col-lg-6">
-                <div class="contact-info-card h-100">
+                <div class="contact-info-card h-100 shadow-xs border">
                     <h3 class="display-font h2 mb-4" style="color: var(--accent-coffee);">Opening Hours</h3>
-                    <p class="mb-4">We are open every day of the week, including holidays, to bring you fresh food and aromatic coffee.</p>
+                    <p class="mb-4 text-muted">We are open every day of the week, including holidays, to bring you fresh artisanal food and single-origin coffee.</p>
                     
                     <div class="d-flex justify-content-between border-bottom py-2" style="border-color: #E8E0CE !important;">
                         <span class="fw-bold">Monday - Friday</span>
@@ -305,33 +305,25 @@ try {
                         <span class="fw-bold text-success" style="color: var(--accent-sage) !important;">Kitchen Timings</span>
                         <span>Closes at 9:30 PM</span>
                     </div>
-                    
-                    <div class="mt-4 pt-2">
-                        <h5 class="fw-bold text-dark">Need help?</h5>
-                        <p class="mb-0 text-muted">Phone: <?php echo escape($settings['cafe_phone']); ?></p>
-                        <p class="text-muted">Email: <?php echo escape($settings['cafe_email']); ?></p>
-                    </div>
                 </div>
             </div>
             
-            <!-- Map -->
+            <!-- Visit Us & Assistance -->
             <div class="col-lg-6">
-                <div class="map-container h-100">
-                    <?php if (!empty($settings['cafe_google_maps'])): ?>
-                        <iframe 
-                            src="<?php echo escape($settings['cafe_google_maps']); ?>" 
-                            width="100%" 
-                            height="100%" 
-                            style="border:0; min-height: 350px;" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
-                    <?php else: ?>
-                        <div class="bg-light d-flex align-items-center justify-content-center h-100" style="min-height: 350px;">
-                            <p class="text-muted">Google Maps embed not configured yet.</p>
-                        </div>
-                    <?php endif; ?>
+                <div class="contact-info-card h-100 shadow-xs border">
+                    <h3 class="display-font h2 mb-4" style="color: var(--accent-coffee);">Visit Mellow & Meadow</h3>
+                    <p class="text-muted mb-3"><i class="bi bi-geo-alt-fill text-sage me-2"></i><?php echo escape($settings['cafe_address']); ?></p>
+                    <p class="text-muted mb-3"><i class="bi bi-telephone-fill text-sage me-2"></i><?php echo escape($settings['cafe_phone']); ?></p>
+                    <p class="text-muted mb-4"><i class="bi bi-envelope-fill text-sage me-2"></i><?php echo escape($settings['cafe_email']); ?></p>
+                    
+                    <div class="d-flex gap-2 flex-wrap">
+                        <a href="menu.php" class="btn btn-sage text-white px-4 py-2">Order Online</a>
+                        <?php if (!empty($settings['cafe_whatsapp'])): ?>
+                            <a href="https://wa.me/<?php echo preg_replace('/[^0-9]/', '', $settings['cafe_whatsapp']); ?>" class="btn btn-outline-sage px-4 py-2" target="_blank">
+                                <i class="bi bi-whatsapp me-1"></i> WhatsApp
+                            </a>
+                        <?php endif; ?>
+                    </div>
                 </div>
             </div>
         </div>

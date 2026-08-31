@@ -207,28 +207,8 @@ require_once __DIR__ . '/includes/navbar.php';
                         </form>
                     </div>
                 <?php endif; ?>
-                
             </div>
         </div>
-        
-        <!-- Google Map Embedding Section -->
-        <?php if (!empty($settings['cafe_google_maps'])): ?>
-            <div class="row mt-5">
-                <div class="col-12">
-                    <div class="map-container shadow-sm">
-                        <iframe 
-                            src="<?php echo escape($settings['cafe_google_maps']); ?>" 
-                            width="100%" 
-                            height="450" 
-                            style="border:0;" 
-                            allowfullscreen="" 
-                            loading="lazy" 
-                            referrerpolicy="no-referrer-when-downgrade">
-                        </iframe>
-                    </div>
-                </div>
-            </div>
-        <?php endif; ?>
         
     </div>
 </section>
